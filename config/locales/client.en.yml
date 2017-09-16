@@ -1,0 +1,12 @@
+en:
+  js:
+    d-chronos:
+      title: Add relative time
+      create:
+        modal_title: "Add relative time"
+        form:
+          user_zone: Your current zone
+          date: Date
+          countdown: Countdown
+          time: Time
+          format: Format

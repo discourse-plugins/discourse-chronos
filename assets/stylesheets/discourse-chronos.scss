@@ -1,0 +1,40 @@
+.d-chronos {
+  display: inline-block;
+
+  &.cooked {
+    padding: 0px 4px;
+    color: dark-light-choose(scale-color($primary, $lightness: 30%), scale-color($secondary, $lightness: 70%));
+    background: $primary-low;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.93em;
+    vertical-align: middle;
+  }
+
+  +.d-chronos {
+    margin-left: 3px;
+  }
+}
+
+
+.d-chronos-create-modal {
+  min-height: 300px;
+  display: flex;
+  flex-direction: row;
+
+  .form {
+    width: 250px;
+
+    input, .select-box, .date-picker-wrapper {
+      width: 100%;
+    }
+  }
+
+  .preview {
+    flex: 1;
+    padding: 10px;
+    margin-left: 25px;
+    background: $primary;
+    margin-top: 0;
+  }
+}

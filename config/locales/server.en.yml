@@ -1,0 +1,3 @@
+en:
+  site_settings:
+    d_chronos_enabled: "Enable the discourse-chronos plugin. If you change this, you must rebake all posts with: \"rake posts:rebake\"."

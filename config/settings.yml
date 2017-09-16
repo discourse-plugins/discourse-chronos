@@ -1,0 +1,4 @@
+plugins:
+  d_chronos_enabled:
+    default: true
+    client: true
