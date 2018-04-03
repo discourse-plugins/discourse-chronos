@@ -1,4 +1,24 @@
 plugins:
-  d_chronos_enabled:
+  discourse_chronos_enabled:
     default: true
     client: true
+  discourse_chronos_default_formats:
+    default: "YY-MM-DD hh:mm|MMM Do YY h:mm|MMMM Do YYYY, h:mm:ss a"
+    client: true
+    type: list
+  discourse_chronos_fallback_format:
+    default: "YY-MM-DD hh:mm"
+    client: true
+    type: string
+  discourse_chronos_fallback_timezones:
+    default: "Europe/Paris|America/Los_Angeles"
+    client: true
+    type: list
+  discourse_chronos_preview_format:
+    default: "YY-MM-DD hh:mm"
+    client: true
+    type: string
+  discourse_chronos_preview_timezones:
+    default: "Europe/Paris|America/Los_Angeles"
+    client: true
+    type: list

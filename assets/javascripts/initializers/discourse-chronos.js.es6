@@ -5,9 +5,20 @@ import showModal from "discourse/lib/show-modal";
 
 function initializeDiscourseChronos(api) {
   api.decorateCooked($elem => {
-    const cdn = "https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js";
-    loadScript(cdn, { scriptTag: true }).then(function () {
-      $(".d-chronos", $elem).chronos();
+    const cdn = "https://momentjs.com/downloads/moment-timezone-with-data-2012-2022.js";
+
+    // this will be needed for tests later
+    // currently I didn’t write tests as the current Ember version used in Discourse
+    // has an issue with freezing dates
+    if (Ember.testing) {
+      const script = document.createElement("script");
+      script.src = cdn;
+      script.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+
+    loadScript(cdn, { scriptTag: !Ember.testing }).then(() => {
+      $(".discourse-chronos", $elem).chronos();
     });
   });
 
@@ -15,23 +26,15 @@ function initializeDiscourseChronos(api) {
     return {
       action: "insertDiscourseChronos",
       icon: "globe",
-      label: "d-chronos.title"
+      label: "discourse_chronos.title"
     };
   });
 
   ComposerController.reopen({
     actions: {
       insertDiscourseChronos() {
-        const discourseChronosConfig = Ember.Object.extend({
-          format: "YY-MM-DD HH:mm",
-          time: "09:00",
-          countdown: false,
-          date: moment().format("YYYY-MM-DD")
-        }).create();
-
-        showModal("d-chronos-create-modal").setProperties({
-          toolbarEvent: this.get("toolbarEvent"),
-          config: discourseChronosConfig
+        showModal("discourse-chronos-create-modal").setProperties({
+          toolbarEvent: this.get("toolbarEvent")
         });
       }
     }
@@ -43,7 +46,7 @@ export default {
 
   initialize(container) {
     const siteSettings = container.lookup("site-settings:main");
-    if (siteSettings.d_chronos_enabled) {
+    if (siteSettings.discourse_chronos_enabled) {
       withPluginApi("0.8.8", initializeDiscourseChronos);
     }
   }

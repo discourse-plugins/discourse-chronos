@@ -6,6 +6,6 @@
 register_asset "javascripts/discourse-chronos.js"
 register_asset "stylesheets/discourse-chronos.scss"
 
-enabled_site_setting :d_chronos_enabled
+enabled_site_setting :discourse_chronos_enabled
 
 load File.expand_path('../lib/discourse_chronos/engine.rb', __FILE__)

@@ -1,0 +1,79 @@
+{{#d-modal-body
+  title="discourse_chronos.create.modal_title"
+  class="discourse-chronos-create-modal"
+  style="overflow: auto"}}
+
+  <div class="form">
+
+    <h3>{{i18n "discourse_chronos.create.form.title"}}</h3>
+    <div class="control-group">
+      <label>{{i18n "discourse_chronos.create.form.date_and_time_description" timezone=currentUserTimezone}}</label>
+      <div class="controls date-time">
+        {{date-picker-future class="date" value=date defaultDate="DD-MM-YYYY"}}
+        {{input type="time" value=time class="time"}}
+      </div>
+    </div>
+    <div class="control-group">
+      <label>
+        {{i18n "discourse_chronos.create.form.format_description"}}
+        (<a target="_blank" rel="noopener" href="https://momentjs.com/docs/#/parsing/string-format/">?</a>)
+      </label>
+      <div class="controls">
+        {{text-field value=format}}
+      </div>
+    </div>
+    <div class="control-group">
+      <ul class="formats">
+        {{#each formats as |format|}}
+          <li class="format">
+            <a href {{action "fillFormat" format}}>{{format}}</a>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+    <h3>{{i18n "discourse_chronos.create.form.fallback_timezones_title"}}</h3>
+    <div class="control-group">
+      <label>{{i18n "discourse_chronos.create.form.fallback_timezones_description"}}</label>
+      <div class="controls">
+        {{multi-select limit=5 content=timezones class="timezone-fallback-selector" values=fallbackTimezones}}
+      </div>
+    </div>
+    <div class="control-group">
+      <label>
+        {{i18n "discourse_chronos.create.form.fallback_format_description"}}
+        (<a target="_blank" rel="noopener" href="https://momentjs.com/docs/#/parsing/string-format/">?</a>)
+      </label>
+      <div class="controls">
+        {{text-field value=fallbackFormat}}
+      </div>
+    </div>
+
+    <h3>{{i18n "discourse_chronos.create.form.preview_timezones_title"}}</h3>
+    <div class="control-group">
+      <label>{{i18n "discourse_chronos.create.form.preview_timezones_description"}}</label>
+      <div class="controls">
+        {{multi-select limit=5 content=timezones class="timezone-preview-selector" values=previewTimezones}}
+      </div>
+    </div>
+    <div class="control-group">
+      <label>
+        {{i18n "discourse_chronos.create.form.preview_format_description"}}
+        (<a target="_blank" rel="noopener" href="https://momentjs.com/docs/#/parsing/string-format/">?</a>)
+      </label>
+      <div class="controls">
+        {{text-field value=previewFormat}}
+      </div>
+    </div>
+  </div>
+{{/d-modal-body}}
+
+<div class="modal-footer discourse-chronos-create-modal-footer">
+  {{d-button class="btn"
+    action="save"
+    label="discourse_chronos.create.form.create"}}
+
+  <a href {{action "cancel"}}>
+    {{i18n 'cancel'}}
+  </a>
+</div>

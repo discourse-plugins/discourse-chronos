@@ -1,12 +1,17 @@
 en:
   js:
-    d-chronos:
-      title: Add relative time
+    discourse_chronos:
+      title: Create event
       create:
-        modal_title: "Add relative time"
+        modal_title: Create event
         form:
-          user_zone: Your current zone
-          date: Date
-          countdown: Countdown
-          time: Time
-          format: Format
+          create: Create
+          title: Configure the event
+          date_and_time_description: Set the date and time of the event in your timezone (%{timezone})
+          format_description: Format used to display the date to the user
+          fallback_timezones_title: Fallback settings
+          fallback_timezones_description: Set timezones used for fallbacks
+          fallback_format_description: Set fallback format
+          preview_timezones_title: Preview settings
+          preview_timezones_description: Set timezones used for previews
+          preview_format_description: Set preview format

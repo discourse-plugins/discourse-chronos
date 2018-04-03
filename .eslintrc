@@ -36,6 +36,7 @@
     "fillIn":true,
     "keyEvent":true,
     "triggerEvent":true,
+    "selectKit":true,
     "count":true,
     "exists":true,
     "visible":true,

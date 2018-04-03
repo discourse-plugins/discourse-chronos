@@ -1,23 +1,23 @@
 (function($) {
-  $.fn.chronos = function() {
+  $.fn.chronos = function(repeat) {
     function processElement($element, options) {
-      let relativeTime;
-      const tz = $element.data("timezone") || moment.tz.guess();
-      const datetime = moment(options.datetime).tz(tz);
-        console.log(options.countdown, typeof options.countdown)
-      if (options.countdown === true) {
-        relativeTime = datetime.fromNow();
-      } else {
-        relativeTime = datetime.format(options.format);
+      repeat = repeat || true;
+
+      if (this.timeout) {
+        clearTimeout(this.timeout);
       }
 
-      $element.text(relativeTime);
-      $element.attr("title", tz);
-      $element.addClass("cooked");
+      const relativeTime = moment.utc(`${options.date} ${options.time}`, "YYYY-MM-DD HH:mm")
+        .tz(moment.tz.guess())
+        .format(options.format);
 
-      setTimeout(() => {
-        processElement($element, options);
-      }, 10000);
+      $element.text(relativeTime).addClass("cooked");
+
+      if (repeat) {
+        this.timeout = setTimeout(() => {
+          processElement($element, options);
+        }, 10000);
+      }
     }
 
     return this.each(function () {
@@ -25,8 +25,8 @@
 
       let options = {};
       options.format = $this.data("format");
-      options.datetime = $this.data("datetime");
-      options.countdown = $this.data("countdown");
+      options.date = $this.data("date");
+      options.time = $this.data("time");
 
       processElement($this, options);
     });
