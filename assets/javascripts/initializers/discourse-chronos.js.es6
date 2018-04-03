@@ -1,5 +1,4 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import ComposerController from "discourse/controllers/composer";
 import loadScript from "discourse/lib/load-script";
 import showModal from "discourse/lib/show-modal";
 
@@ -30,7 +29,7 @@ function initializeDiscourseChronos(api) {
     };
   });
 
-  ComposerController.reopen({
+  api.modifyClass('controller:composer', {
     actions: {
       insertDiscourseChronos() {
         showModal("discourse-chronos-create-modal").setProperties({
