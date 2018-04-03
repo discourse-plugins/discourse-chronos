@@ -7,7 +7,7 @@
         clearTimeout(this.timeout);
       }
 
-      const relativeTime = moment.utc(`${options.date} ${options.time}`, "YYYY-MM-DD HH:mm")
+      const relativeTime = moment.utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm")
         .tz(moment.tz.guess())
         .format(options.format);
 
