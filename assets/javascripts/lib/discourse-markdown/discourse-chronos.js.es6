@@ -50,7 +50,7 @@ export function setup(helper) {
 
   helper.registerPlugin(md => {
     const rule = {
-      matcher: /\[discourse-chronos (.*?)\](.*)\[\/discourse-chronos\]/,
+      matcher: /\[discourse-chronos (.*?)\](.*?)\[\/discourse-chronos\]/,
       onMatch: addChronos
     };
 
