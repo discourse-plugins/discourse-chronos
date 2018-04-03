@@ -20,7 +20,7 @@ export default Ember.Component.extend({
 
     this.set("date", moment().format(this.dateFormat));
     this.set("time", moment().format(this.timeFormat));
-    this.set("format", this.dateTimeFormat);
+    this.set("format", `${this.dateTimeFormat} \\T\\Z`);
 
     this.set("fallbackTimezones", (this.siteSettings.discourse_chronos_fallback_timezones || "").split("|").filter(f => f));
     this.set("fallbackFormat", this.siteSettings.discourse_chronos_fallback_format || this.dateTimeFormat);
@@ -66,7 +66,16 @@ export default Ember.Component.extend({
       return `${dateTime} (${t})`;
     });
 
-    return `[discourse-chronos time=${config.time};date=${config.date};format=${config.format};fallbackFormat=${config.fallbackFormat};fallbackTimezones=${config.fallbackTimezones.join("|")};fallbackFormat=${config.fallbackFormat};previewTimezones=${config.previewTimezones.join("|")};previewFormat=${config.previewFormat}]${fallbacks.join(", ")}[/discourse-chronos]`;
+    const previews = config.previewTimezones.map(t => {
+      const dateTime = moment
+                        .utc(`${config.date} ${config.time}`, this.dateTimeFormat)
+                        .tz(t)
+                        .format(config.previewFormat);
+
+      return `${t} ${dateTime}`;
+    });
+
+    return `[discourse-chronos time=${config.time};date=${config.date};format=${config.format};fallbackTimezones=${config.fallbackTimezones.join("|")};fallbackFormat=${config.fallbackFormat};previewTimezones=${config.previewTimezones.join("|")};previewFormat=${config.previewFormat};previews=${previews.join("|")}]${fallbacks.join(", ")}[/discourse-chronos]`;
   },
 
   actions: {

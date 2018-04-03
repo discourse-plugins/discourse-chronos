@@ -19,19 +19,10 @@ function addChronos(buffer, matches, state) {
     config[o[0]] = o[1];
   });
 
-  const previews = config.previewTimezones.split("|").map(t => {
-    const dateTime = moment
-                      .utc(`${config.date} ${config.time}`, this.dateTimeFormat)
-                      .tz(t)
-                      .format(config.previewFormat);
-
-    return `${t} ${dateTime}`;
-  });
-
   token = new state.Token('span_open', 'span', 1);
   token.attrs = [
     ['class', 'discourse-chronos'],
-    ['title', previews.join("\n")],
+    ['title', config.previews.split("|").join("\n")],
     ['data-date', config.date],
     ['data-time', config.time],
     ['data-format', config.format]

@@ -8,7 +8,7 @@ en:
           create: Create
           title: Configure the event
           date_and_time_description: Set the date and time of the event in your timezone (%{timezone})
-          format_description: Format used to display the date to the user
+          format_description: "Format used to display the date to the user. Use \"\\T\\Z\" to display the user timezone in words (Europe/Paris)"
           fallback_timezones_title: Fallback settings
           fallback_timezones_description: Set timezones used for fallbacks
           fallback_format_description: Set fallback format

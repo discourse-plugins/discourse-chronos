@@ -3,7 +3,7 @@ plugins:
     default: true
     client: true
   discourse_chronos_default_formats:
-    default: "YY-MM-DD hh:mm|MMM Do YY h:mm|MMMM Do YYYY, h:mm:ss a"
+    default: "YY-MM-DD hh:mm (\\T\\Z)|MMM Do YY h:mm|MMMM Do YYYY, h:mm:ss a"
     client: true
     type: list
   discourse_chronos_fallback_format:

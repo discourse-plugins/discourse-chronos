@@ -11,7 +11,7 @@
         .tz(moment.tz.guess())
         .format(options.format);
 
-      $element.text(relativeTime).addClass("cooked");
+      $element.text(relativeTime.replace("TZ", moment.tz.guess())).addClass("cooked");
 
       if (repeat) {
         this.timeout = setTimeout(() => {
