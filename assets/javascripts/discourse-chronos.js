@@ -21,7 +21,7 @@
     }
 
     return this.each(function() {
-      const $this = $(this);
+      var $this = $(this);
 
       var options = {};
       options.format = $this.data("format");
