@@ -14,13 +14,13 @@
       $element.text(relativeTime.replace("TZ", moment.tz.guess())).addClass("cooked");
 
       if (repeat) {
-        this.timeout = setTimeout(() => {
+        this.timeout = setTimeout(function() {
           processElement($element, options);
         }, 10000);
       }
     }
 
-    return this.each(function () {
+    return this.each(function() {
       const $this = $(this);
 
       let options = {};
