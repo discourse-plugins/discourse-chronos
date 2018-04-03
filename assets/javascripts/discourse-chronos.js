@@ -23,7 +23,7 @@
     return this.each(function() {
       const $this = $(this);
 
-      let options = {};
+      var options = {};
       options.format = $this.data("format");
       options.date = $this.data("date");
       options.time = $this.data("time");
