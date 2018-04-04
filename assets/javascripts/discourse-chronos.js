@@ -16,11 +16,11 @@
 
       var previews = options.timezones.split("|").map(function(tz) {
         var dateTime = moment
-                          .utc(`${options.date} ${options.time}`, this.dateTimeFormat)
+                          .utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm")
                           .tz(tz)
                           .format(options.format);
 
-        return `${dateTime.replace("TZ", tz)}`;
+        return dateTime.replace("TZ", tz);
       });
 
       relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
