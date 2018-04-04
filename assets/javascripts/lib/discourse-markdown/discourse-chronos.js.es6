@@ -36,7 +36,11 @@ function addChronos(buffer, matches, state) {
                       .tz(tz)
                       .format(config.format);
 
-    return `${dateTime.replace("TZ", tz)}`;
+    if (dateTime.match(/TZ/)) {
+      return dateTime.replace("TZ", tz);
+    } else {
+      return `${dateTime} (${tz})`;
+    }
   });
 
   token = new state.Token('text', '', 0);
