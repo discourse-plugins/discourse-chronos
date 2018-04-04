@@ -22,16 +22,25 @@ function addChronos(buffer, matches, state) {
   token = new state.Token('span_open', 'span', 1);
   token.attrs = [
     ['class', 'discourse-chronos'],
-    ['title', config.previews.split("|").join("\n")],
     ['data-date', config.date],
     ['data-time', config.time],
     ['data-recurring', config.recurring],
-    ['data-format', config.format]
+    ['data-format', config.format],
+    ['data-timezones', config.timezones],
   ];
   buffer.push(token);
 
+  const previews = config.timezones.split("|").map(tz => {
+    const dateTime = moment
+                      .utc(`${config.date} ${config.time}`, "YYYY-MM-DD HH:mm")
+                      .tz(tz)
+                      .format(config.format);
+
+    return `${dateTime.replace("TZ", tz)}`;
+  });
+
   token = new state.Token('text', '', 0);
-  token.content = config.previews.split("|").join(", ");
+  token.content = previews.join(", ");
   buffer.push(token);
 
   token = new state.Token('span_close', 'span', -1);

@@ -1,7 +1,6 @@
 import computed from "ember-addons/ember-computed-decorators";
 
 export default Ember.Component.extend({
-  previewValue: null,
   timeFormat: "HH:mm",
   dateFormat: "YYYY-MM-DD",
   dateTimeFormat: "YYYY-MM-DD HH:mm",
@@ -60,23 +59,12 @@ export default Ember.Component.extend({
   },
 
   getTextConfig(config) {
-    const previews = config.timezones.map(tz => {
-      const dateTime = moment
-                        .utc(`${config.date} ${config.time}`, this.dateTimeFormat)
-                        .tz(tz)
-                        .format(config.format);
-
-      return `${dateTime.replace("TZ", tz)}`;
-    });
-
-
     let text = "[discourse-chronos ";
     if (config.recurring) text += `recurring=${config.recurring};`;
     text += `time=${config.time};`;
     text += `date=${config.date};`;
     text += `format=${config.format};`;
-    text += `timezones=${config.timezones};`;
-    text += `previews=${previews.join("|")}`;
+    text += `timezones=${config.timezones.join("|")};`;
     text += `]`;
     return text;
   },
