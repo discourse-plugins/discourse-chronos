@@ -5,7 +5,7 @@
 
 register_asset "javascripts/discourse-chronos.js"
 register_asset "stylesheets/discourse-chronos.scss"
-register_asset "javascripts/vendor/moment.min.js", :vendored_pretty_text
+# register_asset "javascripts/vendor/moment.min.js", :vendored_pretty_text
 
 enabled_site_setting :discourse_chronos_enabled
 
