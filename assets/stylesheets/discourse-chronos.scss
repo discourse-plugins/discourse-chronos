@@ -2,20 +2,12 @@
   display: inline-block;
 
   &.cooked {
-    padding: 0px 6px;
-    color: dark-light-choose(
-      scale-color($primary, $lightness: 30%),
-      scale-color($secondary, $lightness: 70%)
-    );
-    background: $primary-low;
-    border-radius: 8px;
+    color: $primary;
     font-weight: bold;
-    font-size: 1em;
-    vertical-align: middle;
   }
 
   + .discourse-chronos {
-    margin-left: 3px;
+    margin-left: 5px;
   }
 }
 
