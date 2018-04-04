@@ -4,7 +4,6 @@
   style="overflow: auto"}}
 
   <div class="form">
-
     <h3>{{i18n "discourse_chronos.create.form.title"}}</h3>
     <div class="control-group">
       <label>{{i18n "discourse_chronos.create.form.date_and_time_description" timezone=currentUserTimezone}}</label>
@@ -32,37 +31,19 @@
       </ul>
     </div>
 
-    <h3>{{i18n "discourse_chronos.create.form.fallback_timezones_title"}}</h3>
+    <h3>{{i18n "discourse_chronos.create.form.recurring_title"}}</h3>
     <div class="control-group">
-      <label>{{i18n "discourse_chronos.create.form.fallback_timezones_description"}}</label>
+      <label>{{{i18n "discourse_chronos.create.form.recurring_description"}}}</label>
       <div class="controls">
-        {{multi-select limit=5 content=timezones class="timezone-fallback-selector" values=fallbackTimezones}}
-      </div>
-    </div>
-    <div class="control-group">
-      <label>
-        {{i18n "discourse_chronos.create.form.fallback_format_description"}}
-        (<a target="_blank" rel="noopener" href="https://momentjs.com/docs/#/parsing/string-format/">?</a>)
-      </label>
-      <div class="controls">
-        {{text-field value=fallbackFormat}}
+        {{combo-box content=recurringOptions value=recurring none="discourse_chronos.create.form.recurring_none"}}
       </div>
     </div>
 
-    <h3>{{i18n "discourse_chronos.create.form.preview_timezones_title"}}</h3>
+    <h3>{{i18n "discourse_chronos.create.form.timezones_title"}}</h3>
     <div class="control-group">
-      <label>{{i18n "discourse_chronos.create.form.preview_timezones_description"}}</label>
+      <label>{{i18n "discourse_chronos.create.form.timezones_description"}}</label>
       <div class="controls">
-        {{multi-select limit=5 content=timezones class="timezone-preview-selector" values=previewTimezones}}
-      </div>
-    </div>
-    <div class="control-group">
-      <label>
-        {{i18n "discourse_chronos.create.form.preview_format_description"}}
-        (<a target="_blank" rel="noopener" href="https://momentjs.com/docs/#/parsing/string-format/">?</a>)
-      </label>
-      <div class="controls">
-        {{text-field value=previewFormat}}
+        {{multi-select limit=5 content=allTimezones values=timezones}}
       </div>
     </div>
   </div>

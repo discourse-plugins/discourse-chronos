@@ -6,28 +6,19 @@ export default Ember.Component.extend({
   dateFormat: "YYYY-MM-DD",
   dateTimeFormat: "YYYY-MM-DD HH:mm",
   config: null,
-  fallbackTimezones: null,
-  previewTimezones: null,
   date: null,
   time: null,
   format: null,
   formats: null,
-  fallbackFormat: null,
-  previewFormat: null,
+  recurring: null,
 
   init() {
     this._super();
 
     this.set("date", moment().format(this.dateFormat));
     this.set("time", moment().format(this.timeFormat));
-    this.set("format", `${this.dateTimeFormat} \\T\\Z`);
-
-    this.set("fallbackTimezones", (this.siteSettings.discourse_chronos_fallback_timezones || "").split("|").filter(f => f));
-    this.set("fallbackFormat", this.siteSettings.discourse_chronos_fallback_format || this.dateTimeFormat);
-
-    this.set("previewTimezones", (this.siteSettings.discourse_chronos_preview_timezones || "").split("|").filter(f => f));
-    this.set("previewFormat", this.siteSettings.discourse_chronos_preview_format || this.dateTimeFormat);
-
+    this.set("format", `LL HH:mm (\\T\\Z)`);
+    this.set("timezones", (this.siteSettings.discourse_chronos_default_timezones || "").split("|").filter(f => f));
     this.set("formats", (this.siteSettings.discourse_chronos_default_formats || "").split("|"));
   },
 
@@ -35,8 +26,22 @@ export default Ember.Component.extend({
     return moment.tz.guess();
   },
 
+  @computed
+  recurringOptions() {
+    return [
+      { name: "Every day", id: "1.days" },
+      { name: "Every week", id: "1.weeks" },
+      { name: "Every two weeks", id: "2.weeks" },
+      { name: "Every month", id: "1.months" },
+      { name: "Every two months", id: "2.months" },
+      { name: "Every three months", id: "3.months" },
+      { name: "Every six months", id: "6.months" },
+      { name: "Every year", id: "1.years" },
+    ];
+  },
+
   @computed()
-  timezones() {
+  allTimezones() {
     return _.map(moment.tz.names(), (z) => z);
   },
 
@@ -48,34 +53,32 @@ export default Ember.Component.extend({
     return {
       date: dateTime.format(this.dateFormat),
       time: dateTime.format(this.timeFormat),
+      recurring: this.get("recurring"),
       format: this.get("format"),
-      previewTimezones: this.get("previewTimezones"),
-      fallbackTimezones: this.get("fallbackTimezones"),
-      fallbackFormat: this.get("fallbackFormat"),
-      previewFormat: this.get("previewFormat"),
+      timezones: this.get("timezones"),
     };
   },
 
   getTextConfig(config) {
-    const fallbacks = config.fallbackTimezones.map(t => {
+    const previews = config.timezones.map(tz => {
       const dateTime = moment
                         .utc(`${config.date} ${config.time}`, this.dateTimeFormat)
-                        .tz(t)
-                        .format(config.fallbackFormat);
+                        .tz(tz)
+                        .format(config.format);
 
-      return `${dateTime} (${t})`;
+      return `${dateTime.replace("TZ", tz)}`;
     });
 
-    const previews = config.previewTimezones.map(t => {
-      const dateTime = moment
-                        .utc(`${config.date} ${config.time}`, this.dateTimeFormat)
-                        .tz(t)
-                        .format(config.previewFormat);
 
-      return `${t} ${dateTime}`;
-    });
-
-    return `[discourse-chronos time=${config.time};date=${config.date};format=${config.format};fallbackTimezones=${config.fallbackTimezones.join("|")};fallbackFormat=${config.fallbackFormat};previewTimezones=${config.previewTimezones.join("|")};previewFormat=${config.previewFormat};previews=${previews.join("|")}]${fallbacks.join(", ")}[/discourse-chronos]`;
+    let text = "[discourse-chronos ";
+    if (config.recurring) text += `recurring=${config.recurring};`;
+    text += `time=${config.time};`;
+    text += `date=${config.date};`;
+    text += `format=${config.format};`;
+    text += `timezones=${config.timezones};`;
+    text += `previews=${previews.join("|")}`;
+    text += `]`;
+    return text;
   },
 
   actions: {

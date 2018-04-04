@@ -25,12 +25,13 @@ function addChronos(buffer, matches, state) {
     ['title', config.previews.split("|").join("\n")],
     ['data-date', config.date],
     ['data-time', config.time],
+    ['data-recurring', config.recurring],
     ['data-format', config.format]
   ];
   buffer.push(token);
 
   token = new state.Token('text', '', 0);
-  token.content = matches[2];
+  token.content = config.previews.split("|").join(", ");
   buffer.push(token);
 
   token = new state.Token('span_close', 'span', -1);
@@ -50,7 +51,7 @@ export function setup(helper) {
 
   helper.registerPlugin(md => {
     const rule = {
-      matcher: /\[discourse-chronos (.*?)\](.*?)\[\/discourse-chronos\]/,
+      matcher: /\[discourse-chronos (.*?)\]/,
       onMatch: addChronos
     };
 

@@ -7,9 +7,14 @@
         clearTimeout(this.timeout);
       }
 
-      const relativeTime = moment.utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm")
-        .tz(moment.tz.guess())
-        .format(options.format);
+      var relativeTime = moment.utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm");
+
+      if (options.recurring && relativeTime < moment().utc()) {
+        var parts = options.recurring.split(".");
+        relativeTime = relativeTime.add(parts[0], parts[1]);
+      }
+
+      relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
 
       $element.text(relativeTime.replace("TZ", moment.tz.guess())).addClass("cooked");
 
@@ -24,9 +29,10 @@
       var $this = $(this);
 
       var options = {};
-      options.format = $this.data("format");
-      options.date = $this.data("date");
-      options.time = $this.data("time");
+      options.format = $this.attr("data-format");
+      options.date = $this.attr("data-date");
+      options.time = $this.attr("data-time");
+      options.recurring = $this.attr("data-recurring");
 
       processElement($this, options);
     });

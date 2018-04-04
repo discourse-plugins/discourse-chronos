@@ -2,7 +2,4 @@ en:
   site_settings:
     discourse_chronos_enabled: "Enable the discourse-chronos plugin. If you change this, you must rebake all posts with: \"rake posts:rebake\"."
     discourse_chronos_default_formats: "Frequently used date time formats, see: <a target='_blank' rel='noopener' href='https://momentjs.com/docs/#/parsing/string-format/'>momentjs string format</a>"
-    discourse_chronos_fallback_format: "Default fallback format, see: <a target='_blank' rel='noopener' href='https://momentjs.com/docs/#/parsing/string-format/'>momentjs string format</a>"
-    discourse_chronos_fallback_timezones: "Default list of fallback timezones, must be a valid <a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>TZ</a>"
-    discourse_chronos_preview_format: "Default preview format, see: <a target='_blank' rel='noopener' href='https://momentjs.com/docs/#/parsing/string-format/'>momentjs string format</a>"
-    discourse_chronos_preview_timezones: "Default list of preview timezones, must be a valid <a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>TZ</a>"
+    discourse_chronos_default_timezones: "Default list of timezones, must be a valid <a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/List_of_tz_database_time_zones'>TZ</a>"
