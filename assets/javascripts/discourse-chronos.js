@@ -1,5 +1,9 @@
 (function($) {
   $.fn.chronos = function(repeat) {
+    function _formatTimezone(timezone) {
+      return timezone.replace("/", ": ").replace("_", " ");
+    }
+
     function processElement($element, options) {
       repeat = repeat || true;
 
@@ -14,23 +18,23 @@
         relativeTime = relativeTime.add(parts[0], parts[1]);
       }
 
-      var previews = options.timezones.split("|").map(function(tz) {
+      var previews = options.timezones.split("|").map(function(timezone) {
         var dateTime = moment
                           .utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm")
-                          .tz(tz)
+                          .tz(timezone)
                           .format(options.format);
 
         if (dateTime.match(/TZ/)) {
-          return dateTime.replace("TZ", tz);
+          return dateTime.replace("TZ", _formatTimezone(timezone));
         } else {
-          return dateTime + "(" + tz + ")";
+          return dateTime + "(" + _formatTimezone(timezone) + ")";
         }
       });
 
       relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
 
       $element
-        .text(relativeTime.replace("TZ", moment.tz.guess())).addClass("cooked")
+        .text(relativeTime.replace("TZ", _formatTimezone(moment.tz.guess()))).addClass("cooked")
         .attr("title", previews.join("\n"));
 
       if (repeat) {

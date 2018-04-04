@@ -30,16 +30,17 @@ function addChronos(buffer, matches, state) {
   ];
   buffer.push(token);
 
-  const previews = config.timezones.split("|").map(tz => {
+  const previews = config.timezones.split("|").map(timezone => {
     const dateTime = moment
                       .utc(`${config.date} ${config.time}`, "YYYY-MM-DD HH:mm")
-                      .tz(tz)
+                      .tz(timezone)
                       .format(config.format);
 
+    const formattedTimezone = timezone.replace("/", ": ").replace("_", " ");
+
     if (dateTime.match(/TZ/)) {
-      return dateTime.replace("TZ", tz);
-    } else {
-      return `${dateTime} (${tz})`;
+      return dateTime.replace("TZ", formattedTimezone);
+      return `${dateTime} (${formattedTimezone})`;
     }
   });
 
