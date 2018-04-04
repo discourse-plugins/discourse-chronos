@@ -14,7 +14,7 @@
         relativeTime = relativeTime.add(parts[0], parts[1]);
       }
 
-      var previews = options.timezones.split("|").map(tz => {
+      var previews = options.timezones.split("|").map(function(tz) {
         var dateTime = moment
                           .utc(`${options.date} ${options.time}`, this.dateTimeFormat)
                           .tz(tz)
