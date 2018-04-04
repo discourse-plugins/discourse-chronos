@@ -30,18 +30,18 @@ function addChronos(buffer, matches, state) {
   ];
   buffer.push(token);
 
-  // const previews = config.timezones.split("|").map(tz => {
-  //   const dateTime = moment
-  //                     .utc(`${config.date} ${config.time}`, "YYYY-MM-DD HH:mm")
-  //                     .tz(tz)
-  //                     .format(config.format);
-  //
-  //   return `${dateTime.replace("TZ", tz)}`;
-  // });
+  const previews = config.timezones.split("|").map(tz => {
+    const dateTime = moment
+                      .utc(`${config.date} ${config.time}`, "YYYY-MM-DD HH:mm")
+                      .tz(tz)
+                      .format(config.format);
 
-  // token = new state.Token('text', '', 0);
-  // token.content = previews.join(", ");
-  // buffer.push(token);
+    return `${dateTime.replace("TZ", tz)}`;
+  });
+
+  token = new state.Token('text', '', 0);
+  token.content = previews.join(", ");
+  buffer.push(token);
 
   token = new state.Token('span_close', 'span', -1);
   buffer.push(token);
