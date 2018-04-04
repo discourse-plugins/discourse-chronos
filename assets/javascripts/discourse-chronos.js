@@ -20,7 +20,11 @@
                           .tz(tz)
                           .format(options.format);
 
-        return dateTime.replace("TZ", tz);
+        if (dateTime.match(/TZ/)) {
+          return dateTime.replace("TZ", tz);
+        } else {
+          return dateTime + "(" + tz + ")";
+        }
       });
 
       relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
