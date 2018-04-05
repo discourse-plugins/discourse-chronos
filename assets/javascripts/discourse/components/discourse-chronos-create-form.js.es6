@@ -81,6 +81,10 @@ export default Ember.Component.extend({
     fillFormat(format) {
       this.set("format", format);
     },
+
+    cancel() {
+      this._closeModal();
+    }
   },
 
   _closeModal() {
