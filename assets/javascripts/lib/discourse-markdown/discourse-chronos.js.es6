@@ -10,7 +10,8 @@ function addChronos(buffer, matches, state) {
   let config = {
     date: null,
     time: null,
-    format: "YYYY-MM-DD HH:mm"
+    format: "YYYY-MM-DD HH:mm",
+    timezones: ""
   };
 
   const options = matches[1].split(";");
@@ -30,7 +31,7 @@ function addChronos(buffer, matches, state) {
   ];
   buffer.push(token);
 
-  const previews = config.timezones.split("|").map(timezone => {
+  const previews = config.timezones.split("|").filter(t => t).map(timezone => {
     const dateTime = moment
                       .utc(`${config.date} ${config.time}`, "YYYY-MM-DD HH:mm")
                       .tz(timezone)

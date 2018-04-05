@@ -52,7 +52,7 @@
       options.date = $this.attr("data-date");
       options.time = $this.attr("data-time");
       options.recurring = $this.attr("data-recurring");
-      options.timezones = $this.attr("data-timezones");
+      options.timezones = $this.attr("data-timezones") || "Etc/UTC";
 
       processElement($this, options);
     });
