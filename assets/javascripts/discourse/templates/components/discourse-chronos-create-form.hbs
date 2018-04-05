@@ -43,7 +43,7 @@
     <div class="control-group">
       <label>{{i18n "discourse_chronos.create.form.timezones_description"}}</label>
       <div class="controls">
-        {{multi-select limit=5 content=allTimezones values=timezones}}
+        {{multi-select allowAny=false limit=5 content=allTimezones values=timezones}}
       </div>
     </div>
   </div>
