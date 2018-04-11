@@ -41,7 +41,7 @@
       $element
         .html(html)
         .attr("title", previews.join("\n"))
-        .attr("onclick", `alert('${previews.join("\\n")}'); return false;`)
+        .attr("onclick", "alert('" + previews.join("\\n") + "');return false;")
         .addClass("cooked");
 
       if (repeat) {
