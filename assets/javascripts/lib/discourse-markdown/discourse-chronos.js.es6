@@ -20,7 +20,7 @@ function addChronos(buffer, matches, state) {
     config[o[0]] = o[1];
   });
 
-  token = new state.Token('span_open', 'span', 1);
+  token = new state.Token('a_open', 'a', 1);
   token.attrs = [
     ['class', 'discourse-chronos'],
     ['data-date', config.date],
@@ -41,6 +41,7 @@ function addChronos(buffer, matches, state) {
 
     if (dateTime.match(/TZ/)) {
       return dateTime.replace("TZ", formattedTimezone);
+    } else {
       return `${dateTime} (${formattedTimezone})`;
     }
   });
@@ -49,15 +50,15 @@ function addChronos(buffer, matches, state) {
   token.content = previews.join(", ");
   buffer.push(token);
 
-  token = new state.Token('span_close', 'span', -1);
+  token = new state.Token('a_close', 'a', -1);
   buffer.push(token);
 }
 
 export function setup(helper) {
   helper.whiteList([
-    'span.discourse-chronos',
-    'span[data-*]',
-    'span[title]'
+    'a.discourse-chronos',
+    'a[data-*]',
+    'a[title]'
   ]);
 
   helper.registerOptions((opts, siteSettings) => {

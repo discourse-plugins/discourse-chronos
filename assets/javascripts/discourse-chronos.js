@@ -27,15 +27,22 @@
         if (dateTime.match(/TZ/)) {
           return dateTime.replace("TZ", _formatTimezone(timezone));
         } else {
-          return dateTime + "(" + _formatTimezone(timezone) + ")";
+          return dateTime + " (" + _formatTimezone(timezone) + ")";
         }
       });
 
       relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
 
+      var html = "<span>";
+      html += relativeTime.replace("TZ", _formatTimezone(moment.tz.guess()));
+      html += "<i class='fa fa-globe d-icon d-icon-globe'>";
+      html += "<span>";
+
       $element
-        .text(relativeTime.replace("TZ", _formatTimezone(moment.tz.guess()))).addClass("cooked")
-        .attr("title", previews.join("\n"));
+        .html(html)
+        .attr("title", previews.join("\n"))
+        .attr("onclick", `alert('${previews.join("\\n")}'); return false;`)
+        .addClass("cooked");
 
       if (repeat) {
         this.timeout = setTimeout(function() {

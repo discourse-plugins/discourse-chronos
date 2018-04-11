@@ -5,10 +5,24 @@
   &.cooked {
     color: $primary;
     font-weight: bold;
+    cursor: pointer;
+
+    .d-icon-globe {
+      margin-left: .25em;
+      color: $primary-medium;
+
+      &:hover {
+        color: $primary-high;
+      }
+    }
+
+    &:hover .d-icon-globe {
+      color: $primary-high;
+    }
   }
 
   + .discourse-chronos {
-    margin-left: 5px;
+    margin-left: .5em;
   }
 }
 
