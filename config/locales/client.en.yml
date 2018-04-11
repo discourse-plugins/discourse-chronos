@@ -1,13 +1,12 @@
 en:
   js:
     discourse_chronos:
-      title: Create event
+      title: Insert date
       create:
-        modal_title: Create event
+        modal_title: Insert date
         form:
-          create: Create
-          title: Configure the event
-          date_and_time_description: Set the date and time of the event in your timezone (%{timezone})
+          insert: Insert
+          advanced_mode: Advanced mode
           format_description: "Format used to display the date to the user. Use \"\\T\\Z\" to display the user timezone in words (Europe/Paris)"
           timezones_title: Timezones to display
           timezones_description: Timezones will be used to display dates in preview and fallback.

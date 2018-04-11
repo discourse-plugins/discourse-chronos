@@ -1,4 +1,5 @@
 import computed from "ember-addons/ember-computed-decorators";
+import { observes } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
   timeFormat: "HH:mm",
@@ -10,17 +11,25 @@ export default Ember.Component.extend({
   format: null,
   formats: null,
   recurring: null,
+  advancedMode: false,
 
   init() {
     this._super();
 
     this.set("date", moment().format(this.dateFormat));
     this.set("time", moment().format(this.timeFormat));
-    this.set("format", `LL HH:mm (\\T\\Z)`);
+    this.set("format", `LL HH:mm`);
     this.set("timezones", (this.siteSettings.discourse_chronos_default_timezones || "").split("|").filter(f => f));
     this.set("formats", (this.siteSettings.discourse_chronos_default_formats || "").split("|"));
   },
 
+  didInsertElement() {
+    this._super();
+
+    this._setConfig();
+  },
+
+  @computed
   currentUserTimezone() {
     return moment.tz.guess();
   },
@@ -44,18 +53,23 @@ export default Ember.Component.extend({
     return _.map(moment.tz.names(), (z) => z);
   },
 
-  getConfig() {
+  @observes("date", "time", "recurring", "format", "timezones")
+  _setConfig() {
     const date = this.get("date");
     const time = this.get("time");
+    const recurring = this.get("recurring");
+    const format = this.get("format");
+    const timezones = this.get("timezones");
     const dateTime = moment(`${date} ${time}`, this.dateTimeFormat).utc();
 
-    return {
+    this.set("config", {
       date: dateTime.format(this.dateFormat),
       time: dateTime.format(this.timeFormat),
-      recurring: this.get("recurring"),
-      format: this.get("format"),
-      timezones: this.get("timezones"),
-    };
+      dateTime,
+      recurring,
+      format,
+      timezones,
+    });
   },
 
   getTextConfig(config) {
@@ -70,11 +84,14 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    advancedMode() {
+      this.toggleProperty("advancedMode");
+    },
+
     save() {
       this._closeModal();
 
-      const config = this.getConfig();
-      const textConfig = this.getTextConfig(config);
+      const textConfig = this.getTextConfig(this.get("config"));
       this.get("toolbarEvent").addText(textConfig);
     },
 
