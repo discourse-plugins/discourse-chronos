@@ -19,10 +19,7 @@
       }
 
       var previews = options.timezones.split("|").map(function(timezone) {
-        var dateTime = moment
-                          .utc(options.date + " " + options.time, "YYYY-MM-DD HH:mm")
-                          .tz(timezone)
-                          .format(options.format);
+        var dateTime = relativeTime.tz(timezone).format(options.format);
 
         if (dateTime.match(/TZ/)) {
           return dateTime.replace("TZ", _formatTimezone(timezone));
