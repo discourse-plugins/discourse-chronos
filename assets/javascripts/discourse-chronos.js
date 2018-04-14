@@ -33,7 +33,7 @@
       var html = "<span>";
       html += relativeTime.replace("TZ", _formatTimezone(moment.tz.guess()));
       html += "<i class='fa fa-globe d-icon d-icon-globe'>";
-      html += "<span>";
+      html += "</span>";
 
       $element
         .html(html)
