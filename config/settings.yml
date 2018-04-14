@@ -3,7 +3,7 @@ plugins:
     default: true
     client: true
   discourse_chronos_default_formats:
-    default: "LL HH:mm (\\T\\Z)|MMM Do YY H:mm|MMMM Do YYYY, h:mm:ss a"
+    default: "LLL|MMM Do YY H:mm|MMMM Do YYYY, h:mm:ss a"
     client: true
     type: list
   discourse_chronos_default_timezones:
