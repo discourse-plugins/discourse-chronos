@@ -15,7 +15,12 @@
 
       if (options.recurring && relativeTime < moment().utc()) {
         var parts = options.recurring.split(".");
-        relativeTime = relativeTime.add(parts[0], parts[1]);
+        var count = parseInt(parts[0], 10);
+        var type = parts[1];
+        var diff = moment().diff(relativeTime, type);
+        var add = Math.ceil(diff + count);
+
+        relativeTime = relativeTime.add(add, type);
       }
 
       var previews = options.timezones.split("|").map(function(timezone) {
