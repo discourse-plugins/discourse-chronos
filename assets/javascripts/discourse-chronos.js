@@ -30,7 +30,12 @@
         if (dateTime.match(/TZ/)) {
           return dateTime.replace("TZ", timezoneParts.join(": "));
         } else {
-          return timezoneParts[0] + "(" +timezoneParts[1] + ") " + dateTime;
+          var output = timezoneParts[0];
+          if (timezoneParts[1]) {
+            output += " (" + timezoneParts[1] + ")";
+          }
+          output += " " + dateTime;
+          return output;
         }
       });
 
