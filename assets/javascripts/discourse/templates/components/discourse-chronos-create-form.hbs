@@ -14,7 +14,9 @@
 
     <h3>{{i18n "discourse_chronos.create.form.recurring_title"}}</h3>
     <div class="control-group">
-      <label>{{{i18n "discourse_chronos.create.form.recurring_description"}}}</label>
+      {{#if advancedMode}}
+        <label>{{{i18n "discourse_chronos.create.form.recurring_description"}}}</label>
+      {{/if}}
       <div class="controls">
         {{combo-box content=recurringOptions value=recurring none="discourse_chronos.create.form.recurring_none"}}
       </div>
