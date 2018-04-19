@@ -83,6 +83,12 @@ export default Ember.Component.extend({
     return text;
   },
 
+  @computed("config.dateTime")
+  validDate(dateTime) {
+    if (!dateTime) return false;
+    return dateTime.isValid();
+  },
+
   actions: {
     advancedMode() {
       this.toggleProperty("advancedMode");

@@ -60,9 +60,14 @@
 {{/d-modal-body}}
 
 <div class="modal-footer discourse-chronos-create-modal-footer">
-  {{d-button class="btn"
-    action="save"
-    label="discourse_chronos.create.form.insert"}}
+
+  {{#if validDate}}
+    {{d-button class="btn"
+      action="save"
+      label="discourse_chronos.create.form.insert"}}
+  {{else}}
+    <span class="validation-error">{{i18n "discourse_chronos.create.form.invalid_date"}}</span>
+  {{/if}}
 
   <a href {{action "cancel"}}>
     {{i18n 'cancel'}}

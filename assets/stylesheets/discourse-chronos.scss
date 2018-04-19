@@ -26,6 +26,20 @@
   }
 }
 
+.discourse-chronos-create-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .validation-error {
+    color: $danger;
+  }
+
+  &:before, &:after {
+    content: none;
+  }
+}
+
 .discourse-chronos-create-modal {
   min-height: 300px;
   display: flex;
