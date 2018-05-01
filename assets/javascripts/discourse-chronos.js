@@ -42,8 +42,8 @@
       relativeTime = relativeTime.tz(moment.tz.guess()).format(options.format);
 
       var html = "<span>";
+      html += "<i class='fa fa-globe d-icon d-icon-globe'></i>";
       html += relativeTime.replace("TZ", _formatTimezone(moment.tz.guess()).join(": "));
-      html += "<i class='fa fa-globe d-icon d-icon-globe'>";
       html += "</span>";
 
       $element
